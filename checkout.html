@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Checkout — Madhubani Crafts</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/cart.css"/>
+  <link rel="stylesheet" href="css/shop.css"/>
+</head>
+<body>
+
+<div class="topbar">✦ Free shipping on orders above ₹999 &nbsp;|&nbsp; Handcrafted with love from Bihar, India ✦</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Madhubani <span>Crafts</span><small>Handpainted · Made in India</small></a>
+    <ul class="nav-links">
+      <li><a href="shop.html">Shop</a></li>
+      <li><a href="index.html#story">Our Story</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon show-logged-out" data-open-login title="Login">♡</button>
+      <span class="nav-icon show-logged-in" style="font-size:13px;cursor:default">👤 <span class="user-name-display"></span></span>
+      <button class="nav-icon show-logged-in" data-signout style="font-size:13px">Sign out</button>
+      <button class="cart-btn" data-open-cart>🛒 Cart (0)</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero" style="padding:36px 32px">
+  <div class="sec-eyebrow">Madhubani Crafts</div>
+  <h1>Checkout</h1>
+</div>
+
+<div class="checkout-wrap">
+  <div class="section">
+    <div class="checkout-layout">
+
+      <!-- LEFT: form -->
+      <div class="checkout-form">
+        <!-- Login nudge -->
+        <div class="login-nudge show-logged-out">
+          <span>Have an account? <a data-open-login>Sign in</a> to save your order.</span>
+        </div>
+        <div class="login-nudge show-logged-in" style="display:none">
+          <span>Signed in as <strong class="user-name-display"></strong></span>
+        </div>
+
+        <h2>Your details</h2>
+
+        <form id="checkout-form">
+          <div class="form-section-head">Contact</div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>Full Name *</label>
+              <input type="text" name="name" required placeholder="Priya Sharma" autocomplete="name"/>
+            </div>
+            <div class="form-group">
+              <label>WhatsApp Number *</label>
+              <input type="tel" name="phone" required placeholder="9810XXXXXX" autocomplete="tel"/>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email (optional)</label>
+            <input type="email" name="email" placeholder="you@email.com" autocomplete="email"/>
+          </div>
+
+          <div class="form-section-head">Delivery Address</div>
+          <div class="form-group">
+            <label>Street Address *</label>
+            <input type="text" name="address" required placeholder="House / Flat, Street" autocomplete="address-line1"/>
+          </div>
+          <div class="form-group">
+            <label>Area / Landmark</label>
+            <input type="text" name="area" placeholder="Near landmark (optional)"/>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>City *</label>
+              <input type="text" name="city" required placeholder="New Delhi" autocomplete="address-level2"/>
+            </div>
+            <div class="form-group">
+              <label>State *</label>
+              <input type="text" name="state" required placeholder="Delhi" autocomplete="address-level1"/>
+            </div>
+          </div>
+          <div class="form-row-2">
+            <div class="form-group">
+              <label>PIN Code *</label>
+              <input type="text" name="pincode" required placeholder="110001" pattern="[0-9]{6}"/>
+            </div>
+            <div class="form-group">
+              <label>Country</label>
+              <input type="text" value="India" readonly style="background:var(--warm);color:var(--muted)"/>
+            </div>
+          </div>
+
+          <div class="form-section-head">Order Notes</div>
+          <div class="form-group">
+            <label>Special instructions (optional)</label>
+            <textarea name="note" placeholder="E.g. gift wrapping, delivery timing, colour preferences..."></textarea>
+          </div>
+
+          <button type="submit" class="checkout-submit-btn">
+            💬 Place Order on WhatsApp
+          </button>
+          <p class="checkout-note">
+            Clicking above opens WhatsApp with your full order details. We confirm your order and share payment info (UPI/bank transfer) directly there.
+          </p>
+        </form>
+      </div>
+
+      <!-- RIGHT: order summary -->
+      <div class="order-summary">
+        <h3>Order Summary</h3>
+        <div id="summary-items"></div>
+        <div class="summary-totals">
+          <div class="summary-row"><span>Subtotal</span><span id="summary-subtotal">₹0</span></div>
+          <div class="summary-row"><span>Shipping</span><span>Free above ₹999</span></div>
+          <div class="summary-row total"><span>Total</span><span id="summary-total">₹0</span></div>
+        </div>
+        <div class="summary-wa-note">
+          💬 Payment via UPI, NEFT, or cash on delivery — confirmed on WhatsApp.
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="f-logo">Madhubani <span>Crafts</span></div>
+      <p class="f-tagline">Authentic handpainted Madhubani art — each piece a story from Mithila.</p>
+    </div>
+    <div class="f-col"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html?cat=sarees">Sarees</a></div>
+    <div class="f-col"><h4>Help</h4><a href="index.html#contact">Contact</a><a href="https://wa.me/919650077991" target="_blank">WhatsApp</a></div>
+    <div class="f-col"><h4>Account</h4><a href="#" data-open-login class="show-logged-out">Login</a><a href="#" data-signout class="show-logged-in">Sign Out</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Madhubani Crafts. All rights reserved.</span>
+    <span>Made with ♥ in Bihar, India</span>
+  </div>
+</footer>
+
+<button class="wa-float" onclick="window.open('https://wa.me/919650077991','_blank')">💬 WhatsApp Us</button>
+<div id="toast"></div>
+
+<script type="module">
+  import { injectCartSidebar } from './js/cart.js';
+  import { initAuth, injectLoginModal } from './js/auth.js';
+  import { initCheckout } from './js/checkout.js';
+
+  injectCartSidebar();
+  injectLoginModal();
+  initAuth();
+  initCheckout();
+</script>
+</body>
+</html>

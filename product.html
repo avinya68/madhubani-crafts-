@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Product — Madhubani Crafts</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/cart.css"/>
+  <link rel="stylesheet" href="css/shop.css"/>
+</head>
+<body>
+
+<div class="topbar">✦ Free shipping on orders above ₹999 &nbsp;|&nbsp; Handcrafted with love from Bihar, India ✦</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Madhubani <span>Crafts</span><small>Handpainted · Made in India</small></a>
+    <ul class="nav-links">
+      <li><a href="shop.html?cat=sarees">Sarees</a></li>
+      <li><a href="shop.html?cat=kurta-sets">Kurta Sets</a></li>
+      <li><a href="shop.html?cat=paintings">Paintings</a></li>
+      <li><a href="shop.html?cat=home-decor">Home Decor</a></li>
+      <li><a href="shop.html?cat=accessories">Accessories</a></li>
+      <li><a href="index.html#story">Our Story</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon show-logged-out" data-open-login title="Login">♡</button>
+      <span class="nav-icon show-logged-in" style="font-size:13px;cursor:default">👤 <span class="user-name-display"></span></span>
+      <button class="nav-icon show-logged-in" data-signout style="font-size:13px">Sign out</button>
+      <button class="cart-btn" data-open-cart>🛒 Cart (0)</button>
+    </div>
+  </div>
+</nav>
+
+<div class="product-page">
+  <div class="section" style="padding-bottom:0">
+    <div class="breadcrumb" id="breadcrumb">
+      <a href="index.html">Home</a><span>/</span>
+      <a href="shop.html">Shop</a><span>/</span>
+      <span id="breadcrumb-name">...</span>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="product-layout" id="product-layout">
+      <!-- skeleton -->
+      <div class="prod-skeleton" style="aspect-ratio:3/4;border-radius:12px"></div>
+      <div>
+        <div class="prod-skeleton" style="height:2rem;width:60%;margin-bottom:12px"></div>
+        <div class="prod-skeleton" style="height:1rem;width:40%;margin-bottom:8px"></div>
+        <div class="prod-skeleton" style="height:1.8rem;width:30%"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Related -->
+  <div class="related-section">
+    <div class="section">
+      <div class="sec-head">
+        <div class="sec-eyebrow">More picks</div>
+        <h2>You may also like</h2>
+        <div class="bar"></div>
+      </div>
+      <div class="prod-grid" id="related-grid"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="f-logo">Madhubani <span>Crafts</span></div>
+      <p class="f-tagline">Authentic handpainted Madhubani art — each piece a story from Mithila.</p>
+      <div class="f-social">
+        <a href="https://www.instagram.com/madhubanicrafts_/" target="_blank" rel="noopener">📷</a>
+        <a href="https://wa.me/919650077991" target="_blank" rel="noopener">💬</a>
+        <a href="mailto:madhubanihandicrafts@gmail.com">✉️</a>
+      </div>
+    </div>
+    <div class="f-col"><h4>Shop</h4><a href="shop.html">All Products</a><a href="shop.html?cat=sarees">Sarees</a><a href="shop.html?cat=paintings">Paintings</a></div>
+    <div class="f-col"><h4>Help</h4><a href="index.html#contact">Contact</a><a href="https://wa.me/919650077991" target="_blank">WhatsApp</a></div>
+    <div class="f-col"><h4>Account</h4><a href="#" data-open-login class="show-logged-out">Login</a><a href="#" data-signout class="show-logged-in">Sign Out</a></div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Madhubani Crafts. All rights reserved.</span>
+    <span>Made with ♥ in Bihar, India</span>
+  </div>
+</footer>
+
+<button class="wa-float" onclick="window.open('https://wa.me/919650077991','_blank')">💬 WhatsApp Us</button>
+<div id="toast"></div>
+
+<script type="module">
+  import { injectCartSidebar, Cart } from './js/cart.js';
+  import { initAuth, injectLoginModal } from './js/auth.js';
+  import { getProductById, getProducts, CATEGORIES, renderProductCard, formatPrice } from './js/products.js';
+
+  injectCartSidebar();
+  injectLoginModal();
+  initAuth();
+
+  const id = new URLSearchParams(location.search).get('id');
+  if (!id) { window.location.href = 'shop.html'; }
+
+  let selectedVariant = null;
+  let qty = 1;
+
+  getProductById(id).then(product => {
+    if (!product) { window.location.href = 'shop.html'; return; }
+
+    document.title = `${product.name} — Madhubani Crafts`;
+    document.getElementById('breadcrumb-name').textContent = product.name;
+
+    const catLabel = CATEGORIES.find(c => c.id === product.category)?.label || product.category;
+    const hasSale  = product.originalPrice && product.originalPrice > product.price;
+
+    document.getElementById('product-layout').innerHTML = `
+      <div class="product-gallery">
+        <div class="product-main-img" id="main-img" style="background:${product.bg}">
+          ${product.images?.length ? `<img src="${product.images[0]}" alt="${product.name}"/>` : product.emoji || "🎨"}
+        </div>
+        ${product.images?.length > 1 ? `
+        <div class="product-thumbs">
+          ${product.images.map((img,i) => `
+            <div class="product-thumb ${i===0?'active':''}" data-img="${img}" data-idx="${i}">
+              <img src="${img}" alt="${product.name} ${i+1}"/>
+            </div>`).join('')}
+        </div>` : ''}
+      </div>
+
+      <div class="product-info">
+        <div class="product-cat">${catLabel}</div>
+        <h1>${product.name}</h1>
+        <div class="product-price-row">
+          <span class="product-price">${formatPrice(product.price)}</span>
+          ${hasSale ? `<span class="product-price-orig">${formatPrice(product.originalPrice)}</span>` : ''}
+          ${product.badge ? `<span class="prod-badge" style="position:static;display:inline-block;margin-left:4px">${product.badge}</span>` : ''}
+        </div>
+        <p class="product-desc">${product.description}</p>
+        <hr class="product-divider"/>
+
+        ${product.variants?.length ? `
+        <div>
+          <div class="variant-label">Option: <strong id="variant-label-val">${product.variants[0]}</strong></div>
+          <div class="variant-options">
+            ${product.variants.map((v,i) => `<button class="variant-btn ${i===0?'active':''}" data-v="${v}">${v}</button>`).join('')}
+          </div>
+        </div>` : ''}
+
+        <div class="qty-row">
+          <label>Qty</label>
+          <div class="qty-control">
+            <button class="qty-btn" id="qty-dec">−</button>
+            <span class="qty-num" id="qty-val">1</span>
+            <button class="qty-btn" id="qty-inc">+</button>
+          </div>
+        </div>
+
+        <button class="product-atc-btn" id="atc-btn">Add to Cart</button>
+        <button class="product-wa-btn" id="wa-btn">
+          💬 Buy Now via WhatsApp
+        </button>
+
+        <div class="accordion">
+          <button class="accordion-btn" data-target="acc-care">Care Instructions <span>+</span></button>
+          <div class="accordion-body" id="acc-care">Hand wash in cold water. Do not wring. Dry in shade. Iron on reverse side on low heat.</div>
+
+          <button class="accordion-btn" data-target="acc-ship">Shipping <span>+</span></button>
+          <div class="accordion-body" id="acc-ship">Ships within 3–5 business days. Free shipping above ₹999. Carefully packaged to protect artwork during transit.</div>
+
+          <button class="accordion-btn" data-target="acc-ret">Returns <span>+</span></button>
+          <div class="accordion-body" id="acc-ret">7-day return window for damaged or incorrect items. Contact us on WhatsApp with photos of the issue and we'll sort it out.</div>
+        </div>
+      </div>
+    `;
+
+    // Auto-select first variant
+    if (product.variants?.length) selectedVariant = product.variants[0];
+
+    // Thumb clicks
+    document.querySelectorAll('.product-thumb').forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        document.querySelectorAll('.product-thumb').forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+        const mi = document.getElementById('main-img');
+        mi.innerHTML = `<img src="${thumb.dataset.img}" alt="${product.name}"/>`;
+      });
+    });
+
+    // Variant buttons
+    document.querySelectorAll('.variant-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        document.querySelectorAll('.variant-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+        selectedVariant = btn.dataset.v;
+        const lbl = document.getElementById('variant-label-val');
+        if (lbl) lbl.textContent = selectedVariant;
+      });
+    });
+
+    // Qty
+    document.getElementById('qty-dec')?.addEventListener('click', () => {
+      if (qty > 1) { qty--; document.getElementById('qty-val').textContent = qty; }
+    });
+    document.getElementById('qty-inc')?.addEventListener('click', () => {
+      qty++; document.getElementById('qty-val').textContent = qty;
+    });
+
+    // Add to cart
+    document.getElementById('atc-btn')?.addEventListener('click', async () => {
+      await Cart.add(product, selectedVariant, qty);
+      // open sidebar
+      document.getElementById('cart-sidebar')?.classList.add('open');
+      document.getElementById('cart-overlay')?.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    });
+
+    // WhatsApp buy now
+    document.getElementById('wa-btn')?.addEventListener('click', async () => {
+      await Cart.add(product, selectedVariant, qty);
+      window.location.href = 'checkout.html';
+    });
+
+    // Accordion
+    document.querySelectorAll('.accordion-btn').forEach(btn => {
+      btn.addEventListener('click', () => {
+        const body = document.getElementById(btn.dataset.target);
+        const open = body.classList.toggle('open');
+        btn.querySelector('span').textContent = open ? '−' : '+';
+      });
+    });
+  });
+
+  // Related products
+  Promise.all([getProductById(id), getProducts()]).then(([product, all]) => {
+    if (!product) return;
+    const related = all.filter(p => p.id !== id && p.category === product.category).slice(0, 4);
+    const grid = document.getElementById('related-grid');
+    if (!related.length) { grid.closest('.related-section').style.display = 'none'; return; }
+    related.forEach(p => grid.appendChild(renderProductCard(p, prod => Cart.add(prod))));
+  });
+</script>
+</body>
+</html>
