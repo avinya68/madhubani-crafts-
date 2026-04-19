@@ -381,6 +381,37 @@ nav {
 .social-link:hover { transform: translateY(-2px); border-color: var(--terracotta); background: #fff8f1; }
 .social-meta strong { display: block; font-size: 13px; color: var(--deep); margin-bottom: 2px; }
 .social-meta span { font-size: 12px; color: var(--muted); }
+.contact-hero-copy {
+  max-width: 640px;
+  margin: 14px auto 0;
+  font-size: 14px;
+  color: var(--mid);
+  line-height: 1.8;
+}
+.contact-title { font-family: var(--font-display); font-size: 28px; color: var(--deep); }
+.contact-intro { font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.8; }
+.contact-icon {
+  min-width: 48px; height: 48px;
+  border-radius: 999px;
+  display: grid; place-items: center;
+  background: #fff; border: 1px solid var(--border);
+  font-size: 12px; color: var(--terracotta); font-weight: 600;
+}
+.contact-actions { display: flex; gap: 12px; margin-top: 20px; flex-wrap: wrap; }
+.contact-info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+.info-panel {
+  background: linear-gradient(135deg, rgba(253,246,238,0.95), #fff);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 24px;
+}
+.info-panel h2 { font-family: var(--font-display); font-size: 30px; color: var(--deep); margin-bottom: 12px; }
+.info-panel p { font-size: 14px; color: var(--mid); line-height: 1.8; }
+.info-list { margin-top: 18px; padding-left: 18px; color: var(--mid); line-height: 1.9; font-size: 14px; }
+.faq-panel { display: grid; gap: 16px; }
+.faq-item { padding: 16px 18px; border-radius: 12px; background: #fff; border: 1px solid var(--border); }
+.faq-item strong { display: block; color: var(--deep); margin-bottom: 6px; font-size: 14px; }
+.faq-item p { font-size: 13px; line-height: 1.8; color: var(--mid); }
 
 /* ── GALLERY ── */
 .gallery-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
@@ -468,7 +499,7 @@ footer { background: #F5EDE3; padding: 48px 32px 24px; }
 
 /* ── RESPONSIVE ── */
 @media (max-width: 900px) {
-  .hero-inner, .story-grid, .contact-grid { grid-template-columns: 1fr; text-align: center; }
+  .hero-inner, .story-grid, .contact-grid, .contact-info-grid { grid-template-columns: 1fr; text-align: center; }
   .hero h1 { font-size: 38px; }
   .hero-sub { margin: 0 auto 24px; }
   .hero-btns { justify-content: center; }
