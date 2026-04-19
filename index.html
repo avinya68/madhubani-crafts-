@@ -1,0 +1,1265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Madhubani Crafts — Handpainted Art from Mithila</title>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --cream: #FDF6EE;
+      --warm: #F5E6D0;
+      --terracotta: #B85C2A;
+      --deep: #3D1A05;
+      --mid: #7a3e1a;
+      --light-brown: #a0643a;
+      --border: rgba(184,92,42,0.18);
+      --text: #2a1205;
+      --muted: #8B5E3C;
+      --font-display: 'Cormorant Garamond', Georgia, serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--font-body); color: var(--text); background: #fff; }
+    a { text-decoration: none; color: inherit; }
+
+    .topbar {
+      background: var(--deep);
+      color: #f5e6d3;
+      font-size: 11px;
+      text-align: center;
+      padding: 7px 16px;
+      letter-spacing: 1px;
+    }
+
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 200;
+      background: rgba(253,246,238,0.97);
+      backdrop-filter: blur(8px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 32px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+    }
+    .logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--deep);
+      white-space: nowrap;
+      line-height: 1.1;
+    }
+    .logo span { color: var(--terracotta); }
+    .logo small {
+      display: block;
+      font-family: var(--font-body);
+      font-size: 9px;
+      font-weight: 400;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--light-brown);
+      margin-top: 1px;
+    }
+    .nav-links {
+      display: flex;
+      gap: 24px;
+      list-style: none;
+    }
+    .nav-links a {
+      font-size: 12.5px;
+      color: var(--muted);
+      font-weight: 400;
+      letter-spacing: 0.3px;
+      padding-bottom: 2px;
+      border-bottom: 1.5px solid transparent;
+      transition: color .2s, border-color .2s;
+    }
+    .nav-links a:hover { color: var(--terracotta); border-bottom-color: var(--terracotta); }
+    .nav-actions { display: flex; gap: 12px; align-items: center; }
+    .nav-icon { font-size: 18px; cursor: pointer; color: var(--mid); background: none; border: none; padding: 4px; }
+    .cart-btn {
+      background: var(--deep);
+      color: #f5e6d3;
+      border: none;
+      padding: 8px 18px;
+      border-radius: 24px;
+      font-size: 12px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .cart-btn:hover { background: var(--terracotta); }
+
+    .hero {
+      background: linear-gradient(135deg, var(--cream) 0%, var(--warm) 60%, #EDD5B0 100%);
+      min-height: 500px;
+      display: flex;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 60px 32px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+      width: 100%;
+    }
+    .hero-eyebrow {
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 14px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .hero-eyebrow::before { content: ''; display: block; width: 28px; height: 1.5px; background: var(--terracotta); }
+    .hero h1 {
+      font-family: var(--font-display);
+      font-size: 52px;
+      font-weight: 600;
+      color: var(--deep);
+      line-height: 1.15;
+      margin-bottom: 18px;
+    }
+    .hero h1 em { font-style: italic; color: var(--terracotta); }
+    .hero-sub {
+      font-size: 15px;
+      color: var(--mid);
+      line-height: 1.8;
+      margin-bottom: 28px;
+      max-width: 420px;
+    }
+    .hero-btns { display: flex; gap: 14px; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--deep);
+      color: #f5e6d3;
+      border: 2px solid var(--deep);
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-primary:hover { background: var(--terracotta); border-color: var(--terracotta); }
+    .btn-outline {
+      background: transparent;
+      color: var(--deep);
+      border: 2px solid var(--deep);
+      padding: 13px 28px;
+      border-radius: 4px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      letter-spacing: 0.5px;
+      cursor: pointer;
+      transition: all .2s;
+    }
+    .btn-outline:hover { background: var(--deep); color: #f5e6d3; }
+    .hero-art {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .hero-motif {
+      font-size: 200px;
+      opacity: 0.25;
+      filter: sepia(40%);
+      animation: float 6s ease-in-out infinite;
+    }
+    @keyframes float { 0%,100% { transform: translateY(0); } 50% { transform: translateY(-14px); } }
+    .hero-badge {
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      background: var(--terracotta);
+      color: white;
+      padding: 8px 14px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 500;
+    }
+
+    .trust-bar {
+      background: var(--warm);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .trust-inner {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 18px 32px;
+      display: flex;
+      justify-content: space-around;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    .trust-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12.5px;
+      color: var(--mid);
+    }
+    .trust-item span:first-child { font-size: 18px; }
+
+    .section {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 56px 32px;
+    }
+    .section-full { padding: 56px 0; }
+    .sec-head { margin-bottom: 32px; }
+    .sec-eyebrow {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 8px;
+    }
+    .sec-head h2 {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--deep);
+      margin-bottom: 6px;
+    }
+    .sec-head p { font-size: 13.5px; color: var(--muted); }
+    .bar { width: 40px; height: 2.5px; background: var(--terracotta); border-radius: 2px; margin-top: 12px; }
+
+    .cat-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr;
+      grid-template-rows: 180px 180px;
+      gap: 12px;
+    }
+    .cat-card {
+      border-radius: 10px;
+      overflow: hidden;
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: flex-end;
+    }
+    .cat-card.tall { grid-row: span 2; }
+    .cat-bg {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      transition: transform .35s ease;
+    }
+    .cat-card:hover .cat-bg { transform: scale(1.06); }
+    .cat-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top, rgba(40,10,0,.72) 0%, transparent 55%);
+    }
+    .cat-label {
+      position: relative;
+      z-index: 2;
+      padding: 16px;
+      color: white;
+    }
+    .cat-label h3 { font-family: var(--font-display); font-size: 19px; font-weight: 600; margin-bottom: 2px; }
+    .cat-label span { font-size: 11px; opacity: .8; }
+    .cat-shop { display: inline-block; margin-top: 8px; font-size: 11px; border-bottom: 1px solid rgba(255,255,255,.5); padding-bottom: 1px; }
+    .cat-card.tall .cat-bg { font-size: 120px; }
+    .cat-card.tall .cat-label h3 { font-size: 24px; }
+
+    .themes-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .theme-pill {
+      border: 1.5px solid var(--border);
+      border-radius: 24px;
+      padding: 9px 18px;
+      font-size: 13px;
+      color: var(--muted);
+      cursor: pointer;
+      transition: all .2s;
+      background: white;
+    }
+    .theme-pill:hover { border-color: var(--terracotta); color: var(--terracotta); background: #FDF3E7; }
+
+    .bg-cream { background: var(--cream); }
+    .prod-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .prod-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .prod-card:hover { transform: translateY(-3px); box-shadow: 0 8px 24px rgba(61,26,5,.1); }
+    .prod-img {
+      height: 200px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 80px;
+      position: relative;
+      cursor: pointer;
+      overflow: hidden;
+      background-size: cover;
+      background-position: center;
+    }
+    .prod-img img,
+    .story-photo img,
+    .gallery-card img,
+    .insta-tile img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    .prod-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background: var(--terracotta);
+      color: white;
+      font-size: 9px;
+      letter-spacing: .5px;
+      padding: 3px 9px;
+      border-radius: 12px;
+    }
+    .prod-wish {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      font-size: 18px;
+      cursor: pointer;
+      opacity: .6;
+      transition: opacity .2s;
+      z-index: 2;
+    }
+    .prod-wish:hover { opacity: 1; }
+    .prod-body { padding: 14px 16px; }
+    .prod-name { font-size: 14px; font-weight: 500; margin-bottom: 3px; color: var(--text); }
+    .prod-fabric { font-size: 11px; color: var(--muted); margin-bottom: 10px; }
+    .prod-row { display: flex; justify-content: space-between; align-items: center; gap: 10px; }
+    .prod-price { font-size: 15px; color: var(--terracotta); font-weight: 500; }
+    .add-btn {
+      background: var(--deep);
+      color: white;
+      border: none;
+      padding: 7px 14px;
+      border-radius: 6px;
+      font-size: 12px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .add-btn:hover { background: var(--terracotta); }
+
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: center;
+    }
+    .story-img {
+      background: var(--warm);
+      border-radius: 12px;
+      height: 360px;
+      position: relative;
+      overflow: hidden;
+      display: grid;
+      place-items: center;
+    }
+    .story-photo {
+      width: 100%;
+      height: 100%;
+    }
+    .story-placeholder {
+      font-size: 120px;
+    }
+    .story-img::after {
+      content: '🌸';
+      position: absolute;
+      bottom: 20px;
+      right: 20px;
+      font-size: 40px;
+      opacity: .4;
+    }
+    .story-text .eyebrow {
+      font-size: 10px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--terracotta);
+      margin-bottom: 12px;
+    }
+    .story-text h2 {
+      font-family: var(--font-display);
+      font-size: 34px;
+      font-weight: 600;
+      color: var(--deep);
+      line-height: 1.25;
+      margin-bottom: 16px;
+    }
+    .story-text p {
+      font-size: 14px;
+      color: var(--mid);
+      line-height: 1.85;
+      margin-bottom: 14px;
+    }
+    .story-stat-row { display: flex; gap: 28px; margin: 22px 0; }
+    .stat { text-align: center; }
+    .stat-num {
+      font-family: var(--font-display);
+      font-size: 32px;
+      font-weight: 600;
+      color: var(--terracotta);
+      display: block;
+    }
+    .stat-label { font-size: 11px; color: var(--muted); margin-top: 2px; }
+    .story-link {
+      font-size: 13px;
+      color: var(--terracotta);
+      border-bottom: 1.5px solid var(--terracotta);
+      padding-bottom: 2px;
+      display: inline-block;
+    }
+
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 24px;
+      align-items: stretch;
+    }
+    .contact-card,
+    .social-card {
+      background: #fff;
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 24px;
+      box-shadow: 0 10px 30px rgba(61, 26, 5, 0.05);
+    }
+    .contact-lines {
+      display: grid;
+      gap: 14px;
+      margin-top: 18px;
+    }
+    .contact-line {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 14px 16px;
+      background: var(--cream);
+      border-radius: 12px;
+    }
+    .contact-line strong {
+      display: block;
+      color: var(--deep);
+      font-size: 14px;
+      margin-bottom: 2px;
+    }
+    .contact-line span,
+    .contact-line a {
+      font-size: 13px;
+      color: var(--mid);
+      word-break: break-word;
+    }
+    .social-list {
+      display: grid;
+      gap: 12px;
+      margin-top: 18px;
+    }
+    .social-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 14px 16px;
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      transition: transform .2s, border-color .2s, background .2s;
+      background: linear-gradient(135deg, rgba(253,246,238,0.8), #fff);
+    }
+    .social-link:hover {
+      transform: translateY(-2px);
+      border-color: var(--terracotta);
+      background: #fff8f1;
+    }
+    .social-meta strong {
+      display: block;
+      font-size: 13px;
+      color: var(--deep);
+      margin-bottom: 2px;
+    }
+    .social-meta span {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+    }
+    .gallery-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: linear-gradient(135deg, #f9ecdd, #ead1b7);
+      min-height: 240px;
+      position: relative;
+      border: 1px solid var(--border);
+      display: grid;
+      place-items: center;
+    }
+    .gallery-card span {
+      position: absolute;
+      left: 14px;
+      bottom: 14px;
+      background: rgba(61, 26, 5, 0.72);
+      color: #fff;
+      font-size: 11px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      letter-spacing: .3px;
+    }
+    .gallery-placeholder {
+      text-align: center;
+      color: var(--mid);
+      padding: 24px;
+      line-height: 1.7;
+    }
+
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+      gap: 14px;
+    }
+    .rev-card {
+      background: white;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .stars { color: #D97706; font-size: 13px; margin-bottom: 10px; }
+    .rev-text { font-size: 13px; color: var(--mid); line-height: 1.7; margin-bottom: 14px; font-style: italic; }
+    .rev-name { font-size: 13px; font-weight: 500; color: var(--text); }
+    .rev-prod { font-size: 11px; color: var(--muted); margin-top: 2px; }
+
+    .insta-strip {
+      background: var(--warm);
+      padding: 40px 0;
+      text-align: center;
+    }
+    .insta-label { font-size: 13px; color: var(--muted); margin-bottom: 20px; }
+    .insta-label strong { color: var(--terracotta); }
+    .insta-row {
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 0 32px;
+      justify-content: center;
+    }
+    .insta-tile {
+      flex-shrink: 0;
+      width: 130px;
+      height: 130px;
+      border-radius: 8px;
+      display: grid;
+      place-items: center;
+      font-size: 52px;
+      cursor: pointer;
+      transition: opacity .2s;
+      overflow: hidden;
+      border: 1px solid rgba(61, 26, 5, 0.06);
+    }
+    .insta-tile:hover { opacity: .8; }
+
+    .cta-band {
+      background: var(--deep);
+      padding: 56px 32px;
+      text-align: center;
+    }
+    .cta-band h2 {
+      font-family: var(--font-display);
+      font-size: 36px;
+      font-weight: 600;
+      color: #f5e6d3;
+      margin-bottom: 8px;
+    }
+    .cta-band p { font-size: 14px; color: #c4956a; margin-bottom: 24px; }
+    .email-row { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; }
+    .email-row input {
+      padding: 12px 20px;
+      border-radius: 6px;
+      border: none;
+      font-size: 13px;
+      font-family: var(--font-body);
+      width: 260px;
+      outline: none;
+    }
+    .email-row button {
+      background: var(--terracotta);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 6px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .email-row button:hover { background: #a04c22; }
+
+    footer {
+      background: #F5EDE3;
+      padding: 48px 32px 24px;
+    }
+    .footer-grid {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      margin-bottom: 36px;
+    }
+    .f-logo {
+      font-family: var(--font-display);
+      font-size: 22px;
+      font-weight: 600;
+      color: var(--deep);
+      margin-bottom: 10px;
+    }
+    .f-logo span { color: var(--terracotta); }
+    .f-tagline { font-size: 12.5px; color: var(--muted); line-height: 1.7; margin-bottom: 16px; }
+    .f-social { display: flex; gap: 10px; flex-wrap: wrap; }
+    .f-social a {
+      width: 34px; height: 34px;
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+      color: var(--mid);
+      transition: all .2s;
+    }
+    .f-social a:hover { background: var(--terracotta); border-color: var(--terracotta); color: white; }
+    .f-col h4 { font-size: 13px; font-weight: 500; color: var(--deep); margin-bottom: 14px; letter-spacing: .3px; }
+    .f-col a {
+      display: block;
+      font-size: 12.5px;
+      color: var(--muted);
+      margin-bottom: 9px;
+      transition: color .15s;
+    }
+    .f-col a:hover { color: var(--terracotta); }
+    .footer-bottom {
+      max-width: 1200px;
+      margin: 0 auto;
+      border-top: 1px solid var(--border);
+      padding-top: 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+    .footer-bottom span { font-size: 11.5px; color: var(--muted); }
+
+    .wa-float {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      background: #25D366;
+      color: white;
+      border: none;
+      padding: 12px 20px;
+      border-radius: 28px;
+      font-size: 13px;
+      font-family: var(--font-body);
+      font-weight: 500;
+      cursor: pointer;
+      box-shadow: 0 4px 16px rgba(37,211,102,.35);
+      z-index: 300;
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .wa-float:hover { transform: translateY(-2px); box-shadow: 0 6px 22px rgba(37,211,102,.45); }
+
+    @media (max-width: 900px) {
+      .hero-inner,
+      .story-grid,
+      .contact-grid { grid-template-columns: 1fr; text-align: center; }
+      .hero h1 { font-size: 38px; }
+      .hero-sub { margin: 0 auto 24px; }
+      .hero-btns { justify-content: center; }
+      .hero-art { display: none; }
+      .cat-grid { grid-template-columns: 1fr 1fr; grid-template-rows: auto; }
+      .cat-card.tall { grid-row: span 1; }
+      .story-img { height: 240px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .nav-links { display: none; }
+      .gallery-grid { grid-template-columns: repeat(2, 1fr); }
+      .contact-line,
+      .social-link { text-align: left; }
+    }
+    @media (max-width: 600px) {
+      .nav-inner { padding: 0 16px; }
+      .section { padding: 36px 16px; }
+      .hero-inner { padding: 40px 16px; }
+      .cat-grid,
+      .gallery-grid { grid-template-columns: 1fr; }
+      .footer-grid { grid-template-columns: 1fr; }
+      .insta-row { justify-content: flex-start; padding: 0 16px; }
+      .wa-float { right: 16px; bottom: 16px; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="topbar">✦ Free shipping on orders above ₹999 &nbsp;|&nbsp; Handcrafted with love from Bihar, India ✦</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="#" class="logo">
+      Madhubani <span>Crafts</span>
+      <small>Handpainted · Made in India</small>
+    </a>
+    <ul class="nav-links">
+      <li><a href="#categories">Sarees</a></li>
+      <li><a href="#categories">Kurta Sets</a></li>
+      <li><a href="#categories">Paintings</a></li>
+      <li><a href="#categories">Home Decor</a></li>
+      <li><a href="#categories">Accessories</a></li>
+      <li><a href="#story">Our Story</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon" title="Search">🔍</button>
+      <button class="nav-icon" title="Wishlist">♡</button>
+      <button class="cart-btn">🛒 Cart (0)</button>
+    </div>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-eyebrow">New Collection 2025</div>
+      <h1>Wearable <em>Art</em> from<br>the Heart of Mithila</h1>
+      <p class="hero-sub">Authentic handpainted Madhubani on sarees, kurtas, paintings, home decor & accessories — each piece carries a 2,500-year-old story.</p>
+      <div class="hero-btns">
+        <button class="btn-primary" onclick="document.getElementById('products').scrollIntoView({behavior:'smooth'})">Shop Now</button>
+        <button class="btn-outline" onclick="document.getElementById('story').scrollIntoView({behavior:'smooth'})">Our Story</button>
+      </div>
+    </div>
+    <div class="hero-art">
+      <div class="hero-motif">🦚</div>
+      <div class="hero-badge">100% Handpainted</div>
+    </div>
+  </div>
+</section>
+
+<div class="trust-bar">
+  <div class="trust-inner">
+    <div class="trust-item"><span>🎨</span><span>100% Handpainted</span></div>
+    <div class="trust-item"><span>🚚</span><span>Free shipping above ₹999</span></div>
+    <div class="trust-item"><span>↩️</span><span>Easy returns within 7 days</span></div>
+    <div class="trust-item"><span>🌍</span><span>Ships worldwide</span></div>
+    <div class="trust-item"><span>🏆</span><span>152+ happy customers</span></div>
+  </div>
+</div>
+
+<div id="categories" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Browse</div>
+    <h2>Shop by Category</h2>
+    <p>Find your perfect handcrafted piece</p>
+    <div class="bar"></div>
+  </div>
+  <div class="cat-grid">
+    <div class="cat-card tall" style="background: linear-gradient(135deg,#FDF0E0,#EDD5B0);">
+      <div class="cat-bg">🥻</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-label">
+        <h3>Sarees & Blouses</h3>
+        <span>Tussar, Chanderi, Cotton, Silk & more</span>
+        <a class="cat-shop">Shop now →</a>
+      </div>
+    </div>
+    <div class="cat-card" style="background: linear-gradient(135deg,#F0EAF5,#DDD0ED);">
+      <div class="cat-bg" style="font-size:60px;">👗</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-label">
+        <h3>Kurta Sets</h3>
+        <span>Women & Men</span>
+      </div>
+    </div>
+    <div class="cat-card" style="background: linear-gradient(135deg,#E8F4EA,#C8E6CC);">
+      <div class="cat-bg" style="font-size:60px;">🖼️</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-label">
+        <h3>Original Paintings</h3>
+        <span>Canvas & Paper</span>
+      </div>
+    </div>
+    <div class="cat-card" style="background: linear-gradient(135deg,#FDF3E0,#F0D8B0);">
+      <div class="cat-bg" style="font-size:60px;">🏡</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-label">
+        <h3>Home Decor</h3>
+        <span>Cushions, pots, wall art</span>
+      </div>
+    </div>
+    <div class="cat-card" style="background: linear-gradient(135deg,#F5E8E0,#E8C8B0);">
+      <div class="cat-bg" style="font-size:60px;">👜</div>
+      <div class="cat-overlay"></div>
+      <div class="cat-label">
+        <h3>Accessories</h3>
+        <span>Bags, pouches, jewellery</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top:0;">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Collections</div>
+    <h2>Shop by Theme</h2>
+    <p>Art inspired by Mithila tradition</p>
+    <div class="bar"></div>
+  </div>
+  <div class="themes-row">
+    <div class="theme-pill">🌸 Nature</div>
+    <div class="theme-pill">🦚 Peacock</div>
+    <div class="theme-pill">🪔 Radha Krishna</div>
+    <div class="theme-pill">💒 Wedding</div>
+    <div class="theme-pill">🌞 Chhath Puja</div>
+    <div class="theme-pill">🪷 Durga</div>
+    <div class="theme-pill">💼 Office Wear</div>
+    <div class="theme-pill">🏹 Ram Sita</div>
+    <div class="theme-pill">🌊 Underwater Dreams</div>
+    <div class="theme-pill">🎨 Abstract Mithila</div>
+  </div>
+</div>
+
+<div id="products" class="section-full bg-cream">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Bestsellers</div>
+      <h2>Featured Products</h2>
+      <p>Loved and cherished by our customers</p>
+      <div class="bar"></div>
+    </div>
+    <div class="prod-grid">
+      <div class="prod-card">
+        <div class="prod-img" style="background:#FDF0E0;">
+          🦚
+          <div class="prod-badge">Bestseller</div>
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Peacock Tussar Silk Saree</div>
+          <div class="prod-fabric">Tussar Silk · Handpainted</div>
+          <div class="prod-row">
+            <span class="prod-price">₹6,200</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#F0EAF5;">
+          🌸
+          <div class="prod-badge">New</div>
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Floral Chanderi Saree</div>
+          <div class="prod-fabric">Chanderi · Handpainted</div>
+          <div class="prod-row">
+            <span class="prod-price">₹5,400</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#E8F4EA;">
+          🖼️
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Radha Krishna Canvas</div>
+          <div class="prod-fabric">Original Painting · 12×16 inch</div>
+          <div class="prod-row">
+            <span class="prod-price">₹2,499</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#FDF3E0;">
+          🪴
+          <div class="prod-badge">New</div>
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Painted Terracotta Pot</div>
+          <div class="prod-fabric">Home Decor · Handpainted</div>
+          <div class="prod-row">
+            <span class="prod-price">₹799</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#F5E8E0;">
+          👜
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Madhubani Tote Bag</div>
+          <div class="prod-fabric">Accessory · Cotton Canvas</div>
+          <div class="prod-row">
+            <span class="prod-price">₹649</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#EDF0F5;">
+          👘
+          <div class="prod-badge">Bestseller</div>
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Mithila Silk Kurta Set</div>
+          <div class="prod-fabric">Silk · Unstitched</div>
+          <div class="prod-row">
+            <span class="prod-price">₹3,800</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#F0F5E8;">
+          🛋️
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Madhubani Cushion Cover</div>
+          <div class="prod-fabric">Home Decor · Set of 2</div>
+          <div class="prod-row">
+            <span class="prod-price">₹1,199</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="prod-card">
+        <div class="prod-img" style="background:#FDF0E8;">
+          📓
+          <div class="prod-wish">♡</div>
+        </div>
+        <div class="prod-body">
+          <div class="prod-name">Handpainted Diary</div>
+          <div class="prod-fabric">Accessory · A5 size</div>
+          <div class="prod-row">
+            <span class="prod-price">₹499</span>
+            <button class="add-btn">Add to cart</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div id="story" class="section">
+  <div class="story-grid">
+    <div class="story-img">
+      <div class="story-photo">
+        <div class="story-placeholder">🎨</div>
+      </div>
+    </div>
+    <div class="story-text">
+      <div class="eyebrow">About Us</div>
+      <h2>Handpainted with love,<br>from Bihar to your door</h2>
+      <p>Madhubani Crafts brings you authentic Mithila art — an ancient tradition that dates back over 2,500 years. Every piece is meticulously handpainted by skilled artisans using natural motifs of peacocks, fish, flowers, and gods from Mithila mythology.</p>
+      <p>We paint on sarees, kurtas, canvas paintings, home decor, and accessories — making wearable and liveable art that carries the soul of Bihar into your everyday life.</p>
+      <p>When you buy from us, you directly support the artisan families who keep this tradition alive.</p>
+      <div class="story-stat-row">
+        <div class="stat">
+          <span class="stat-num">100%</span>
+          <div class="stat-label">Handpainted</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num">152+</span>
+          <div class="stat-label">Happy customers</div>
+        </div>
+        <div class="stat">
+          <span class="stat-num">2500+</span>
+          <div class="stat-label">Years of tradition</div>
+        </div>
+      </div>
+      <a class="story-link" href="#contact">Read our full story →</a>
+    </div>
+  </div>
+</div>
+
+<div id="contact" class="section">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Connect</div>
+    <h2>Contact & Socials</h2>
+    <p>Add your phone number, WhatsApp, and social media links here</p>
+    <div class="bar"></div>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-card">
+      <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--deep);">Talk to us directly</h3>
+      <p style="font-size: 13.5px; color: var(--muted); margin-top: 8px; line-height: 1.8;">These details are ready for your real business contact info. Once you send your final number and links, I can replace every placeholder in one pass.</p>
+      <div class="contact-lines">
+        <div class="contact-line">
+          <div style="font-size: 22px;">📞</div>
+          <div>
+            <strong>Phone</strong>
+            <a href="tel:+919650077991">+91 9650077991</a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div style="font-size: 22px;">💬</div>
+          <div>
+            <strong>WhatsApp</strong>
+            <a href="https://wa.me/919650077991" target="_blank" rel="noopener">Chat on WhatsApp</a>
+          </div>
+        </div>
+        <div class="contact-line">
+          <div style="font-size: 22px;">📧</div>
+          <div>
+            <strong>Email</strong>
+            <a href="mailto:madhubanihandicrafts@gmail.com">madhubanihandicrafts@gmail.com</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="social-card">
+      <h3 style="font-family: var(--font-display); font-size: 28px; color: var(--deep);">Find us online</h3>
+      <div class="social-list">
+        <a class="social-link" href="https://www.instagram.com/madhubanicrafts_/" target="_blank" rel="noopener">
+          <div class="social-meta">
+            <strong>Instagram</strong>
+            <span>@madhubanicrafts_</span>
+          </div>
+          <div>📷</div>
+        </a>
+        <a class="social-link" href="https://www.facebook.com/profile.php?id=61568912615858" target="_blank" rel="noopener">
+          <div class="social-meta">
+            <strong>Facebook</strong>
+            <span>Visit our Facebook page</span>
+          </div>
+          <div>📘</div>
+        </a>
+        <a class="social-link" href="mailto:madhubanihandicrafts@gmail.com">
+          <div class="social-meta">
+            <strong>Email</strong>
+            <span>madhubanihandicrafts@gmail.com</span>
+          </div>
+          <div>✉️</div>
+        </a>
+        <a class="social-link" href="https://wa.me/919650077991" target="_blank" rel="noopener">
+          <div class="social-meta">
+            <strong>WhatsApp</strong>
+            <span>Message us directly for orders</span>
+          </div>
+          <div>💬</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="padding-top: 0;">
+  <div class="sec-head">
+    <div class="sec-eyebrow">Gallery</div>
+    <h2>Your Images Here</h2>
+    <p>Drop in your real product or artisan photos to replace these placeholders</p>
+    <div class="bar"></div>
+  </div>
+  <div class="gallery-grid">
+    <div class="gallery-card">
+      <div class="gallery-placeholder">Add your hero or product image here</div>
+      <span>Image 1</span>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-placeholder">Add your saree image here</div>
+      <span>Image 2</span>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-placeholder">Add your artisan or workshop image here</div>
+      <span>Image 3</span>
+    </div>
+    <div class="gallery-card">
+      <div class="gallery-placeholder">Add your decor or painting image here</div>
+      <span>Image 4</span>
+    </div>
+  </div>
+</div>
+
+<div class="section-full bg-cream">
+  <div class="section">
+    <div class="sec-head">
+      <div class="sec-eyebrow">Testimonials</div>
+      <h2>What Our Customers Say</h2>
+      <p>152+ verified reviews</p>
+      <div class="bar"></div>
+    </div>
+    <div class="reviews-grid">
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p class="rev-text">"The saree is unlike anything I own. It has a royal yet simple appeal — a true work of art that is unique in many ways."</p>
+        <div class="rev-name">Dr. Priyanka S.</div>
+        <div class="rev-prod">Tussar Silk Saree Blouse Set</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p class="rev-text">"Truly magical art created on the saree. I loved both sarees I ordered — made with care and love. Thank you for keeping the legacy alive."</p>
+        <div class="rev-name">Ranjana Mishra</div>
+        <div class="rev-prod">Chanderi Saree</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p class="rev-text">"The handwork is beautiful, quality is great. Very prompt and professional team. Accommodation of requests was impressive."</p>
+        <div class="rev-name">Supradipta D.</div>
+        <div class="rev-prod">Men's Tussar Silk Kurta</div>
+      </div>
+      <div class="rev-card">
+        <div class="stars">★★★★★</div>
+        <p class="rev-text">"What a beautiful piece of art! I am still in awe that I get to wear it. Such hardworking artists — hats off, keep it up!"</p>
+        <div class="rev-name">Astha Dixit</div>
+        <div class="rev-prod">Ramayan Painting Saree</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="insta-strip">
+  <div class="insta-label">Follow us on Instagram <strong>@madhubanicrafts_</strong></div>
+  <div class="insta-row">
+    <div class="insta-tile" style="background:#FDF0E0;">🦚</div>
+    <div class="insta-tile" style="background:#F0EAF5;">🌸</div>
+    <div class="insta-tile" style="background:#E8F4EA;">🖼️</div>
+    <div class="insta-tile" style="background:#FDF3E0;">🪴</div>
+    <div class="insta-tile" style="background:#F5E8E0;">🥻</div>
+    <div class="insta-tile" style="background:#EDF0F5;">🎨</div>
+  </div>
+</div>
+
+<div class="cta-band">
+  <h2>Get 10% Off Your First Order</h2>
+  <p>Subscribe for new launches, festival collections & exclusive handcrafted offers</p>
+  <div class="email-row">
+    <input type="email" placeholder="Your email address" />
+    <button>Subscribe</button>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="f-logo">Madhubani <span>Crafts</span></div>
+      <p class="f-tagline">Authentic handpainted Madhubani art on clothing, home decor, accessories & original paintings — each piece a story from Mithila.</p>
+      <div class="f-social">
+        <a href="https://www.instagram.com/madhubanicrafts_/" title="Instagram" target="_blank" rel="noopener">📷</a>
+        <a href="https://www.facebook.com/profile.php?id=61568912615858" title="Facebook" target="_blank" rel="noopener">📘</a>
+        <a href="https://wa.me/919650077991" title="WhatsApp" target="_blank" rel="noopener">💬</a>
+        <a href="mailto:madhubanihandicrafts@gmail.com" title="Email">✉️</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Shop</h4>
+      <a href="#">Sarees</a>
+      <a href="#">Kurta Sets</a>
+      <a href="#">Original Paintings</a>
+      <a href="#">Home Decor</a>
+      <a href="#">Accessories</a>
+      <a href="#">New Arrivals</a>
+    </div>
+    <div class="f-col">
+      <h4>Collections</h4>
+      <a href="#">Wedding</a>
+      <a href="#">Chhath Puja</a>
+      <a href="#">Radha Krishna</a>
+      <a href="#">Office Wear</a>
+      <a href="#">Nature Series</a>
+    </div>
+    <div class="f-col">
+      <h4>Help</h4>
+      <a href="#story">About Us</a>
+      <a href="#contact">Contact Us</a>
+      <a href="#">Shipping Policy</a>
+      <a href="#">Returns & Refunds</a>
+      <a href="#">Privacy Policy</a>
+      <a href="#">Terms of Service</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Madhubani Crafts. All rights reserved.</span>
+    <span>Made with ♥ in Bihar, India</span>
+  </div>
+</footer>
+
+<button class="wa-float" onclick="window.open('https://wa.me/919650077991','_blank')">
+  💬 WhatsApp Us
+</button>
+
+<script>
+  let cartCount = 0;
+  const cartBtn = document.querySelector('.cart-btn');
+  document.querySelectorAll('.add-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      cartCount++;
+      cartBtn.textContent = `🛒 Cart (${cartCount})`;
+      btn.textContent = '✓ Added';
+      btn.style.background = '#2a7a3a';
+      setTimeout(() => {
+        btn.textContent = 'Add to cart';
+        btn.style.background = '';
+      }, 1500);
+    });
+  });
+
+  document.querySelectorAll('.prod-wish').forEach(w => {
+    w.addEventListener('click', () => {
+      w.textContent = w.textContent === '♡' ? '❤️' : '♡';
+    });
+  });
+</script>
+</body>
+</html>
