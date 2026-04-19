@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Shop — Madhubani Crafts</title>
+  <link rel="stylesheet" href="css/main.css"/>
+  <link rel="stylesheet" href="css/cart.css"/>
+  <link rel="stylesheet" href="css/shop.css"/>
+</head>
+<body>
+
+<div class="topbar">✦ Free shipping on orders above ₹999 &nbsp;|&nbsp; Handcrafted with love from Bihar, India ✦</div>
+
+<nav>
+  <div class="nav-inner">
+    <a href="index.html" class="logo">Madhubani <span>Crafts</span><small>Handpainted · Made in India</small></a>
+    <ul class="nav-links">
+      <li><a href="shop.html?cat=sarees">Sarees</a></li>
+      <li><a href="shop.html?cat=kurta-sets">Kurta Sets</a></li>
+      <li><a href="shop.html?cat=paintings">Paintings</a></li>
+      <li><a href="shop.html?cat=home-decor">Home Decor</a></li>
+      <li><a href="shop.html?cat=accessories">Accessories</a></li>
+      <li><a href="index.html#story">Our Story</a></li>
+      <li><a href="index.html#contact">Contact</a></li>
+    </ul>
+    <div class="nav-actions">
+      <button class="nav-icon show-logged-out" data-open-login title="Login">♡</button>
+      <span class="nav-icon show-logged-in" style="font-size:13px;cursor:default">👤 <span class="user-name-display"></span></span>
+      <button class="nav-icon show-logged-in" data-signout style="font-size:13px">Sign out</button>
+      <button class="cart-btn" data-open-cart>🛒 Cart (0)</button>
+    </div>
+  </div>
+</nav>
+
+<div class="page-hero">
+  <div class="sec-eyebrow">Madhubani Crafts</div>
+  <h1 id="shop-title">All Products</h1>
+</div>
+
+<div class="shop-wrap">
+  <div class="section" style="padding-top:32px;padding-bottom:0">
+    <!-- Category filter pills -->
+    <div class="themes-row" id="cat-filters" style="margin-bottom:24px">
+      <button class="theme-pill active" data-cat="all">All</button>
+      <button class="theme-pill" data-cat="sarees">Sarees</button>
+      <button class="theme-pill" data-cat="kurta-sets">Kurta Sets</button>
+      <button class="theme-pill" data-cat="paintings">Paintings</button>
+      <button class="theme-pill" data-cat="home-decor">Home Decor</button>
+      <button class="theme-pill" data-cat="accessories">Accessories</button>
+    </div>
+
+    <div class="shop-controls">
+      <span class="shop-count" id="shop-count">Loading...</span>
+      <div class="shop-sort-wrap">
+        Sort:
+        <select id="sort-select">
+          <option value="default">Featured</option>
+          <option value="price-asc">Price: Low → High</option>
+          <option value="price-desc">Price: High → Low</option>
+          <option value="name-asc">Name A–Z</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="prod-grid" id="shop-grid">
+      <div class="prod-skeleton"></div>
+      <div class="prod-skeleton"></div>
+      <div class="prod-skeleton"></div>
+      <div class="prod-skeleton"></div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="f-logo">Madhubani <span>Crafts</span></div>
+      <p class="f-tagline">Authentic handpainted Madhubani art — each piece a story from Mithila.</p>
+      <div class="f-social">
+        <a href="https://www.instagram.com/madhubanicrafts_/" target="_blank" rel="noopener">📷</a>
+        <a href="https://www.facebook.com/profile.php?id=61568912615858" target="_blank" rel="noopener">📘</a>
+        <a href="https://wa.me/919650077991" target="_blank" rel="noopener">💬</a>
+        <a href="mailto:madhubanihandicrafts@gmail.com">✉️</a>
+      </div>
+    </div>
+    <div class="f-col">
+      <h4>Shop</h4>
+      <a href="shop.html?cat=sarees">Sarees</a>
+      <a href="shop.html?cat=kurta-sets">Kurta Sets</a>
+      <a href="shop.html?cat=paintings">Paintings</a>
+      <a href="shop.html?cat=home-decor">Home Decor</a>
+      <a href="shop.html?cat=accessories">Accessories</a>
+    </div>
+    <div class="f-col">
+      <h4>Help</h4>
+      <a href="index.html#story">About Us</a>
+      <a href="index.html#contact">Contact Us</a>
+      <a href="https://wa.me/919650077991" target="_blank">WhatsApp Us</a>
+    </div>
+    <div class="f-col">
+      <h4>Account</h4>
+      <a href="#" data-open-login class="show-logged-out">Login / Register</a>
+      <a href="#" data-signout class="show-logged-in">Sign Out</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2025 Madhubani Crafts. All rights reserved.</span>
+    <span>Made with ♥ in Bihar, India</span>
+  </div>
+</footer>
+
+<button class="wa-float" onclick="window.open('https://wa.me/919650077991','_blank')">💬 WhatsApp Us</button>
+<div id="toast"></div>
+
+<script type="module">
+  import { injectCartSidebar, Cart } from './js/cart.js';
+  import { initAuth, injectLoginModal } from './js/auth.js';
+  import { getProducts, CATEGORIES, renderProductCard } from './js/products.js';
+
+  injectCartSidebar();
+  injectLoginModal();
+  initAuth();
+
+  const grid    = document.getElementById('shop-grid');
+  const countEl = document.getElementById('shop-count');
+  const sortEl  = document.getElementById('sort-select');
+  const title   = document.getElementById('shop-title');
+
+  let allProducts = [];
+  let activeCat = 'all';
+  let activeTag = null;
+
+  // Read URL
+  const params = new URLSearchParams(location.search);
+  if (params.get('cat')) activeCat = params.get('cat');
+  if (params.get('tag')) activeTag = params.get('tag');
+
+  // Sync filter pills
+  document.querySelectorAll('#cat-filters .theme-pill').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.cat === activeCat);
+    btn.addEventListener('click', () => {
+      activeCat = btn.dataset.cat;
+      activeTag = null;
+      document.querySelectorAll('#cat-filters .theme-pill').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      render();
+      const u = new URL(location.href);
+      activeCat === 'all' ? u.searchParams.delete('cat') : u.searchParams.set('cat', activeCat);
+      u.searchParams.delete('tag');
+      history.replaceState({}, '', u);
+    });
+  });
+
+  sortEl.addEventListener('change', render);
+
+  function sorted(items) {
+    const arr = [...items];
+    const v = sortEl.value;
+    if (v === 'price-asc')  return arr.sort((a,b) => a.price - b.price);
+    if (v === 'price-desc') return arr.sort((a,b) => b.price - a.price);
+    if (v === 'name-asc')   return arr.sort((a,b) => a.name.localeCompare(b.name));
+    return arr;
+  }
+
+  function render() {
+    let items = allProducts;
+    if (activeCat !== 'all') items = items.filter(p => p.category === activeCat);
+    if (activeTag) items = items.filter(p => p.tags?.some(t => t.toLowerCase().includes(activeTag.toLowerCase())));
+    items = sorted(items);
+
+    const catLabel = CATEGORIES.find(c => c.id === activeCat)?.label;
+    title.textContent = activeTag ? `#${activeTag}` : (catLabel || 'All Products');
+    countEl.textContent = `${items.length} product${items.length !== 1 ? 's' : ''}`;
+
+    grid.innerHTML = '';
+    if (!items.length) {
+      grid.innerHTML = `<div class="no-results">No products found<br><small style="font-family:var(--font-body);font-size:13px">Try a different category</small></div>`;
+      return;
+    }
+    items.forEach(p => grid.appendChild(renderProductCard(p, product => Cart.add(product))));
+  }
+
+  getProducts().then(products => {
+    allProducts = products;
+    render();
+  });
+</script>
+</body>
+</html>
