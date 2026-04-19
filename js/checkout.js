@@ -1,7 +1,7 @@
 // checkout.js — WhatsApp order builder + Firestore order save
 
 import { Cart } from './cart.js';
-import { getCurrentUser } from './auth.js';
+import { getCurrentUser, getUserProfile, saveUserProfile, whenAuthReady } from './auth.js';
 
 const WA_NUMBER = "919650077991";
 
@@ -11,6 +11,7 @@ export function initCheckout() {
 
   _renderSummary();
   Cart.onChange(_renderSummary);
+  _syncCustomerDetails(form);
 
   form.addEventListener("submit", async e => {
     e.preventDefault();
@@ -34,12 +35,58 @@ export function initCheckout() {
     const total = Cart.total(items);
     const msg   = _buildMsg({ ...d, items, total });
 
+    await _saveCustomerProfile(d);
     await _saveOrder({ ...d, items, total });
     await Cart.clear();
 
     window.open(`https://wa.me/${WA_NUMBER}?text=${encodeURIComponent(msg)}`, "_blank");
     window.location.href = "index.html?order=success";
   });
+}
+
+async function _syncCustomerDetails(form) {
+  await whenAuthReady();
+  await _prefillCustomerDetails(form);
+
+  document.addEventListener("mc:auth-changed", async () => {
+    await _prefillCustomerDetails(form);
+  });
+}
+
+async function _prefillCustomerDetails(form) {
+  const user = getCurrentUser();
+  const emailInput = form.querySelector('[name="email"]');
+  const nameInput = form.querySelector('[name="name"]');
+  const phoneInput = form.querySelector('[name="phone"]');
+  const addressInput = form.querySelector('[name="address"]');
+  const areaInput = form.querySelector('[name="area"]');
+  const cityInput = form.querySelector('[name="city"]');
+  const stateInput = form.querySelector('[name="state"]');
+  const pinInput = form.querySelector('[name="pincode"]');
+
+  if (!user) {
+    if (emailInput && !emailInput.value.trim()) emailInput.readOnly = false;
+    return;
+  }
+
+  const profile = await getUserProfile(user.uid) || {};
+  const fillIfEmpty = (input, value) => {
+    if (input && !input.value.trim() && value) input.value = value;
+  };
+
+  fillIfEmpty(nameInput, profile.name || user.displayName);
+  fillIfEmpty(emailInput, profile.email || user.email);
+  fillIfEmpty(phoneInput, profile.phone);
+  fillIfEmpty(addressInput, profile.address);
+  fillIfEmpty(areaInput, profile.area);
+  fillIfEmpty(cityInput, profile.city);
+  fillIfEmpty(stateInput, profile.state);
+  fillIfEmpty(pinInput, profile.pin);
+
+  if (emailInput && (profile.email || user.email)) {
+    emailInput.readOnly = true;
+    emailInput.title = "Signed-in email";
+  }
 }
 
 function _buildMsg({ name, phone, address, area, city, state, pin, note, items, total }) {
@@ -74,6 +121,22 @@ async function _saveOrder(data) {
       createdAt: serverTimestamp()
     });
   } catch (e) { console.warn("Order save:", e.message); }
+}
+
+async function _saveCustomerProfile(data) {
+  const user = getCurrentUser();
+  if (!user) return;
+
+  await saveUserProfile({
+    name: data.name,
+    email: data.email || user.email || "",
+    phone: data.phone,
+    address: data.address,
+    area: data.area,
+    city: data.city,
+    state: data.state,
+    pin: data.pin
+  });
 }
 
 async function _renderSummary() {

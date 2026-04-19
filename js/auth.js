@@ -4,11 +4,14 @@ import { Cart } from './cart.js';
 
 let _auth = null;
 let _user = null;
+let _authReady = false;
+let _authResolvers = [];
 
 async function getAuth() {
   if (_auth) return _auth;
   try {
-    const { auth } = await import('./firebase-config.js');
+    const { auth, isFirebaseConfigured } = await import('./firebase-config.js');
+    if (!isFirebaseConfigured || !auth) return null;
     _auth = auth;
     return _auth;
   } catch { return null; }
@@ -16,12 +19,17 @@ async function getAuth() {
 
 export async function initAuth() {
   const auth = await getAuth();
-  if (!auth) return;
+  if (!auth) {
+    _markAuthReady();
+    return;
+  }
   const { onAuthStateChanged } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
   onAuthStateChanged(auth, async user => {
     _user = user;
     await Cart.onAuthChange(user ? user.uid : null);
     _updateUI(user);
+    document.dispatchEvent(new CustomEvent("mc:auth-changed", { detail: { user } }));
+    _markAuthReady();
   });
 }
 
@@ -33,6 +41,9 @@ function _updateUI(user) {
     });
   } else {
     document.body.classList.remove("authed");
+    document.querySelectorAll(".user-name-display").forEach(el => {
+      el.textContent = "";
+    });
   }
 }
 
@@ -41,7 +52,8 @@ export async function signInGoogle() {
   if (!auth) { alert("Firebase not connected."); return; }
   const { GoogleAuthProvider, signInWithPopup } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
   try {
-    await signInWithPopup(auth, new GoogleAuthProvider());
+    const cred = await signInWithPopup(auth, new GoogleAuthProvider());
+    await _saveUserProfile(cred.user, { role: "customer" });
     closeLoginModal();
   } catch (e) { _showErr(e.message); }
 }
@@ -51,7 +63,8 @@ export async function signInEmail(email, pass) {
   if (!auth) return;
   const { signInWithEmailAndPassword } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js");
   try {
-    await signInWithEmailAndPassword(auth, email, pass);
+    const cred = await signInWithEmailAndPassword(auth, email, pass);
+    await _saveUserProfile(cred.user, { role: "customer" });
     closeLoginModal();
   } catch (e) { _showErr(_friendly(e.code)); }
 }
@@ -63,17 +76,21 @@ export async function registerEmail(email, pass, name) {
   try {
     const cred = await createUserWithEmailAndPassword(auth, email, pass);
     if (name) await updateProfile(cred.user, { displayName: name });
-    await _setRole(cred.user.uid, "customer");
+    await _saveUserProfile(cred.user, { role: "customer", name, email: cred.user.email || email });
     closeLoginModal();
   } catch (e) { _showErr(_friendly(e.code)); }
 }
 
-async function _setRole(uid, role) {
+async function _saveUserProfile(user, extra = {}) {
   try {
     const { db } = await import('./firebase-config.js');
     if (!db) return;
     const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
-    await setDoc(doc(db, "users", uid), { role }, { merge: true });
+    await setDoc(doc(db, "users", user.uid), {
+      name: user.displayName || extra.name || "",
+      email: user.email || extra.email || "",
+      role: extra.role || "customer"
+    }, { merge: true });
   } catch {}
 }
 
@@ -85,6 +102,39 @@ export async function signOut() {
 }
 
 export function getCurrentUser() { return _user; }
+
+export function whenAuthReady() {
+  if (_authReady) return Promise.resolve(_user);
+  return new Promise(resolve => _authResolvers.push(resolve));
+}
+
+export async function getUserProfile(uid = _user?.uid) {
+  if (!uid) return null;
+  try {
+    const { db } = await import('./firebase-config.js');
+    if (!db) return null;
+    const { doc, getDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    const snap = await getDoc(doc(db, "users", uid));
+    return snap.exists() ? snap.data() : null;
+  } catch {
+    return null;
+  }
+}
+
+export async function saveUserProfile(data) {
+  if (!_user) return;
+  try {
+    const { db } = await import('./firebase-config.js');
+    if (!db) return;
+    const { doc, setDoc } = await import("https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js");
+    await setDoc(doc(db, "users", _user.uid), {
+      ...data,
+      name: data.name || _user.displayName || "",
+      email: data.email || _user.email || "",
+      role: data.role || "customer"
+    }, { merge: true });
+  } catch {}
+}
 
 export async function isAdmin() {
   if (!_user) return false;
@@ -153,14 +203,22 @@ export function injectLoginModal() {
   document.getElementById("to-register").addEventListener("click", () => {
     document.getElementById("login-form-wrap").style.display = "none";
     document.getElementById("register-form-wrap").style.display = "block";
+    _resetErrors();
   });
   document.getElementById("to-login").addEventListener("click", () => {
     document.getElementById("register-form-wrap").style.display = "none";
     document.getElementById("login-form-wrap").style.display = "block";
+    _resetErrors();
   });
 
-  document.querySelectorAll("[data-open-login]").forEach(el => el.addEventListener("click", openLoginModal));
-  document.querySelectorAll("[data-signout]").forEach(el => el.addEventListener("click", signOut));
+  document.querySelectorAll("[data-open-login]").forEach(el => el.addEventListener("click", e => {
+    e.preventDefault();
+    openLoginModal();
+  }));
+  document.querySelectorAll("[data-signout]").forEach(el => el.addEventListener("click", async e => {
+    e.preventDefault();
+    await signOut();
+  }));
 }
 
 export function openLoginModal() {
@@ -170,8 +228,7 @@ export function openLoginModal() {
 export function closeLoginModal() {
   document.getElementById("login-overlay")?.classList.remove("open");
   document.body.style.overflow = "";
-  document.getElementById("auth-error").style.display = "none";
-  document.getElementById("auth-error-reg").style.display = "none";
+  _resetErrors();
 }
 
 function _showErr(msg) {
@@ -179,6 +236,23 @@ function _showErr(msg) {
     const el = document.getElementById(id);
     if (el) { el.textContent = msg; el.style.display = "block"; }
   });
+}
+
+function _resetErrors() {
+  ["auth-error","auth-error-reg"].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.textContent = "";
+      el.style.display = "none";
+    }
+  });
+}
+
+function _markAuthReady() {
+  if (_authReady) return;
+  _authReady = true;
+  _authResolvers.forEach(resolve => resolve(_user));
+  _authResolvers = [];
 }
 
 function _friendly(code) {
