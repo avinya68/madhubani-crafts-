@@ -12,7 +12,7 @@ export const LOCAL_PRODUCTS = [
     bg: "#FDF0E0",
     badge: "Bestseller",
     description: "A stunning hand-painted tussar silk saree featuring the iconic Madhubani peacock motif. Each bird is painted with natural pigments using traditional Mithila techniques. The silk drapes beautifully and the colours are fast-set.",
-    images: [],
+    images: ["pictures/tussar saree.png"],
     variants: ["Rust & Ochre", "Indigo & Gold", "Green & Crimson"],
     tags: ["peacock", "saree", "silk", "bestseller"]
   },
@@ -27,7 +27,7 @@ export const LOCAL_PRODUCTS = [
     bg: "#F0EAF5",
     badge: "New",
     description: "Lightweight chanderi fabric adorned with intricate Madhubani floral motifs — lotuses, vines and birds woven into an unforgettable composition. Perfect for festive and formal occasions.",
-    images: [],
+    images: ["pictures/chanderi slik saree.png"],
     variants: ["Peach & Gold", "Mint & Silver", "Lilac & Red"],
     tags: ["floral", "saree", "chanderi", "new"]
   },
@@ -42,7 +42,7 @@ export const LOCAL_PRODUCTS = [
     bg: "#E8F4EA",
     badge: null,
     description: "Original Madhubani painting of Radha and Krishna on handmade paper. Painted with natural earth pigments using fine bamboo brushes. Framing-ready with a 1-inch border. Certificate of authenticity included.",
-    images: [],
+    images: ["pictures/radha krishna portrait.png"],
     variants: ["12×16 inch", "16×20 inch"],
     tags: ["radha krishna", "painting", "canvas", "religious"]
   },
